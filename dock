@@ -1,0 +1,80 @@
+#!/bin/sh
+docker_ssh()
+{
+  ./scripts/guest_ssh.sh
+}
+
+docker_sshdb()
+{
+  ./scripts/guest_sshdb.sh
+}
+
+docker_stop()
+{
+  ./scripts/down
+}
+
+docker_start()
+{
+  ./scripts/up $1
+}
+
+docker_rebuild()
+{
+  ./scripts/rebuild $1
+}
+
+docker_checkconn()
+{
+  ./scripts/guest_check_drupal_settings.sh
+}
+
+docker_setip()
+{
+  ./scripts/guest_set_host_ip.sh
+}
+
+docker_restartapp()
+{
+  ./scripts/restart_app
+}
+
+# We only care about the 1 argument that is passed.
+case $1 in
+    ssh|SSH)
+        docker_ssh
+        ;;
+    sshdb|SSHDB)
+        docker_sshdb
+        ;;
+    stop|STOP)
+        docker_stop
+        ;;
+    restart|RESTART)
+        docker_stop
+        docker_start $2
+        ;;
+    start|START)
+        docker_start $2
+        ;;
+    rebuild|REBUILD)
+        docker_rebuild $2
+        ;;
+    checkconn|CHECKCONN)
+        docker_checkconn
+        ;;
+    setip|SETIP)
+        docker_setip
+        ;;
+    restartapp|RESTARTAPP)
+        docker_restartapp
+        ;;
+    *)
+        echo "Docker [STOP | START | RESTART | SSH | SSHDB | REBUILD | CHECKCONN | SETIP | RESTARTAPP]"
+        echo "Usage:"
+        echo "  ./dock stop|start|restart|ssh|sshdb|rebuild|checkconn|setip|restartapp"
+        echo "Optional arguments:"
+        echo "-es --elasticsearch\t Start with elastic search support (Start and Restart only)"
+esac
+
+exit 1

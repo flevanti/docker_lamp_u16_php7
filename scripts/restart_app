@@ -1,0 +1,15 @@
+
+# close docker
+echo closing docker app
+osascript -e 'quit app "docker"'
+
+sleep 2
+
+# restart docker app
+echo starting docker app
+open -a docker
+echo docker is restarting, check the icon in the menu bar... give it some time! 
+
+sleep 2
+
+echo Remember to start your containers

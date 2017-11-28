@@ -1,0 +1,27 @@
+#!/bin/sh
+
+containers="webserver mysql"
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -es | --elasticsearch ) shift
+                                containers="webserver mysql memcached elasticsearch"
+                                ;;
+    esac
+    shift
+done
+
+docker-compose down -v && \
+docker-compose build --pull && \
+docker-compose up -d --force-recreate $containers && \
+
+if [ -e "./guest_set_host_ip.sh"  ];
+then
+  ./guest_set_host_ip.sh 
+fi
+
+if [ -e "./scripts/guest_set_host_ip.sh" ];
+then
+  ./scripts/guest_set_host_ip.sh 
+fi
+

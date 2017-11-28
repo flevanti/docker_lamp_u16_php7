@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+    webserver:
+        build:
+            context: "./docker-compose-containers-cfg/webserver"
+        mem_limit: 500m
+        memswap_limit: 1g
+        ports:
+            - "80:80"
+        volumes:
+            - ~/.ssh:/root/.ssh
+            - ./shared/webserver/:/var/www
+            - ./shared/aws_configuration:/root/.aws
+            - ./shared/logs/apache2:/var/log/apache2
+            - ./shared/webserver_bash_history:/root/.bash_history
+        links:
+            - mysql:mysql_host.local
+        container_name: RFWEBSERVER
+        working_dir: /var/www
+    mysql:
+        build: 
+            context: "./docker-compose-containers-cfg/mysql"
+        mem_limit: 2g
+        memswap_limit: 2g
+        volumes:
+            - ./shared/mysql:/var/lib/mysql
+            - ./shared/logs/mysql:/var/log/mysql
+        ports:
+            - "3307:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        container_name: RFDBSERVER 
