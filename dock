@@ -1,42 +1,38 @@
 #!/bin/sh
+
+containers=$(<scripts/containers_list)
+echo ---------------------------------------------------------------
+echo containers list is $containers
+echo ---------------------------------------------------------------
+
 docker_ssh()
 {
-  ./scripts/guest_ssh.sh
-}
-
-docker_sshdb()
-{
-  ./scripts/guest_sshdb.sh
+  (cd scripts && ./guest_ssh.sh)
 }
 
 docker_stop()
 {
-  ./scripts/down
+   (cd scripts && ./down)
 }
 
 docker_start()
 {
-  ./scripts/up $1
+   (cd scripts && ./up)
 }
 
 docker_rebuild()
 {
-  ./scripts/rebuild $1
-}
-
-docker_checkconn()
-{
-  ./scripts/guest_check_drupal_settings.sh
+  (cd scripts && ./rebuild)
 }
 
 docker_setip()
 {
-  ./scripts/guest_set_host_ip.sh
+   (cd scripts && ./guest_set_host_ip.sh)
 }
 
 docker_restartapp()
 {
-  ./scripts/restart_app
+   (cd scripts && ./restart_app)
 }
 
 # We only care about the 1 argument that is passed.
@@ -44,24 +40,18 @@ case $1 in
     ssh|SSH)
         docker_ssh
         ;;
-    sshdb|SSHDB)
-        docker_sshdb
-        ;;
     stop|STOP)
         docker_stop
         ;;
     restart|RESTART)
         docker_stop
-        docker_start $2
+        docker_start
         ;;
     start|START)
-        docker_start $2
+        docker_start
         ;;
     rebuild|REBUILD)
-        docker_rebuild $2
-        ;;
-    checkconn|CHECKCONN)
-        docker_checkconn
+        docker_rebuild
         ;;
     setip|SETIP)
         docker_setip
@@ -70,11 +60,9 @@ case $1 in
         docker_restartapp
         ;;
     *)
-        echo "Docker [STOP | START | RESTART | SSH | SSHDB | REBUILD | CHECKCONN | SETIP | RESTARTAPP]"
+        echo "Docker [STOP | START | RESTART | SSH | REBUILD | SETIP | RESTARTAPP]"
         echo "Usage:"
-        echo "  ./dock stop|start|restart|ssh|sshdb|rebuild|checkconn|setip|restartapp"
-        echo "Optional arguments:"
-        echo "-es --elasticsearch\t Start with elastic search support (Start and Restart only)"
+        echo "  ./dock stop|start|restart|ssh|rebuild|setip|restartapp"
 esac
 
 exit 1

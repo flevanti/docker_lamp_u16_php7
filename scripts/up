@@ -1,28 +1,11 @@
 #!/bin/sh
 
-containers="webserver mysql"
+containers=$(<containers_list)
 
-while [ "$1" != "" ]; do
-    case $1 in
-        -es | --elasticsearch ) shift
-                                containers="webserver mysql memcached elasticsearch"
-                                ;;
-    esac
-    shift
-done
-
-# We only start up ElasticSearch if we request it.
 docker-compose up --build -d $containers
 
-if [ -e "./guest_set_host_ip.sh"  ];
-then
-  ./guest_set_host_ip.sh
-fi
+./guest_set_host_ip.sh
 
-if [ -e "./scripts/guest_set_host_ip.sh" ];
-then
-  ./scripts/guest_set_host_ip.sh
-fi
 
 
 

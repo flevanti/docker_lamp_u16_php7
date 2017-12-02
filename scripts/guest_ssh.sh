@@ -14,7 +14,7 @@ then
 	touch ./shared/webserver_bash_history
 fi
 
-c=$(docker-compose ps |grep RFWEBSERVER -c)
+c=$(docker-compose ps |grep WEBSERVER -c)
 if ((c == 0)) ; then
  echo "Webserver container not running for this docker-compose configuration."
  exit
@@ -25,4 +25,4 @@ fi
 
 # Looks like the webserver container is running for THIS docker configuration
 # this is good, let's go!
-docker exec  -ti RFWEBSERVER bash 
+docker exec  -ti WEBSERVER bash 

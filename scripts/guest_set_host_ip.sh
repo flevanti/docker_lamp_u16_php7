@@ -20,8 +20,7 @@ ip=$( cat host_machine_ip)
 
 echo IP address used is $ip
 
-# docker exec -ti RFWEBSERVER bash --login -c "echo -e \"$ip mysql_host.local\\n\$(cat /etc/hosts |grep -v mysql_host.local)\" > /etc/hosts"
-docker exec -ti RFWEBSERVER bash --login -c "echo -e \"$ip dockerhost\\n\$(cat /etc/hosts |grep -v dockerhost)\" > /etc/hosts"
+docker exec -ti WEBSERVER bash --login -c "echo -e \"$ip dockerhost\\n\$(cat /etc/hosts |grep -v dockerhost)\" > /etc/hosts"
 
 echo your new guest machine hosts file is
-docker exec -ti RFWEBSERVER bash --login -c "cat /etc/hosts"
+docker exec -ti WEBSERVER bash --login -c "cat /etc/hosts"

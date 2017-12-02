@@ -19,5 +19,5 @@
 !/shared/logs/.gitkeep
 
 
-/host_machine_ip
+host_machine_ip
 shared/webserver_bash_history

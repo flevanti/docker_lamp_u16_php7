@@ -16,7 +16,8 @@ services:
             - ./shared/webserver_bash_history:/root/.bash_history
         links:
             - mysql:mysql_host.local
-        container_name: RFWEBSERVER
+            - redis:redis_host.local
+        container_name: WEBSERVER
         working_dir: /var/www
     mysql:
         build: 
@@ -30,4 +31,13 @@ services:
             - "3307:3306"
         environment:
             MYSQL_ROOT_PASSWORD: root
-        container_name: RFDBSERVER 
+        container_name: DBSERVER 
+    redis:
+        build: 
+            context: "./docker-compose-containers-cfg/redis"
+        mem_limit: 1g
+        memswap_limit: 1g
+       # volumes:
+        ports:
+            - "6379:6379"
+        container_name: REDIS 
