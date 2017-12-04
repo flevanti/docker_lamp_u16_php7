@@ -7,7 +7,7 @@ services:
         mem_limit: 500m
         memswap_limit: 1g
         ports:
-            - "80:80"
+            - "81:80"
         volumes:
             - ~/.ssh:/root/.ssh
             - ./shared/webserver/:/var/www
@@ -28,7 +28,7 @@ services:
             - ./shared/mysql:/var/lib/mysql
             - ./shared/logs/mysql:/var/log/mysql
         ports:
-            - "3307:3306"
+            - "3308:3306"
         environment:
             MYSQL_ROOT_PASSWORD: root
         container_name: DBSERVER 
