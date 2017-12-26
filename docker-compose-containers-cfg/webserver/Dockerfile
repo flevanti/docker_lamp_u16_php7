@@ -6,4 +6,6 @@ RUN echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseTLS=NO" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=NO" >> /etc/ssmtp/ssmtp.conf
 
+RUN echo 'cd /var/www/html' >> ~/.bashrc 
+
 
