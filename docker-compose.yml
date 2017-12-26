@@ -17,6 +17,7 @@ services:
         links:
             - mysql:mysql_host.local
             - redis:redis_host.local
+            - mailcatcher:mailcatcher.local
         container_name: WEBSERVER
         working_dir: /var/www
     mysql:
@@ -42,3 +43,12 @@ services:
         ports:
             - "6379:6379"
         container_name: REDIS 
+
+        
+    mailcatcher:
+        build:
+            context: "./docker-compose-containers-cfg/mailcatcher"
+        ports:
+            - 1025:25
+            - 1080:80
+        container_name: RFMAILCATCHER
