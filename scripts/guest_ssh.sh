@@ -7,11 +7,11 @@
 # even if not the one related to the folder you are in
 # this is misleading and dangerous. 
 
-if [ -d "./shared/webserver_bash_history" ] 
+if [ -d "../shared/webserver_bash_history" ] 
 then
 	echo converting bash history dir to file
-	rm -r ./shared/webserver_bash_history
-	touch ./shared/webserver_bash_history
+	rm -r ../shared/webserver_bash_history
+	touch ../shared/webserver_bash_history
 fi
 
 c=$(docker-compose ps |grep WEBSERVER -c)
