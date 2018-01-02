@@ -51,4 +51,4 @@ services:
         ports:
             - 1025:25
             - 1080:80
-        container_name: RFMAILCATCHER
+        container_name: MAILCATCHER
